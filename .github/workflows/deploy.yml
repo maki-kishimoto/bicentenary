@@ -34,6 +34,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          echo "Verifying that no TypeScript files are referenced in built HTML..."
+          if grep -r "\.tsx\|\.ts\"" ./dist/index.html; then
+            echo "ERROR: Built HTML contains references to TypeScript files!"
+            exit 1
+          fi
+          echo "✓ Build verification passed"
+
       - name: Add .nojekyll file
         run: touch ./dist/.nojekyll
 
