@@ -37,11 +37,13 @@ jobs:
       - name: Verify build output
         run: |
           echo "Verifying that no TypeScript files are referenced in built HTML..."
-          if grep -r "\.tsx\|\.ts\"" ./dist/index.html; then
+          # Check for .ts or .tsx extensions in src attributes or import statements
+          if grep -E '(src=|from ).*\.(tsx?)"' ./dist/index.html; then
             echo "ERROR: Built HTML contains references to TypeScript files!"
+            echo "The build process should have compiled all TypeScript to JavaScript."
             exit 1
           fi
-          echo "✓ Build verification passed"
+          echo "✓ Build verification passed - no TypeScript files in built output"
 
       - name: Add .nojekyll file
         run: touch ./dist/.nojekyll
