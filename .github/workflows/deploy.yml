@@ -50,12 +50,14 @@ jobs:
           FOUND_TS=0
           
           # Check for quoted .ts/.tsx files (double or single quotes)
-          if grep -E '(src|import)[[:space:]]*=[[:space:]]*["\047][^"\047]*\.(tsx?)["\047]' ./dist/index.html; then
+          # Matches: src="file.tsx" or src='file.ts' or import="file.tsx"
+          if grep -E '(src|import)[[:space:]]*=[[:space:]]*["'\''][^"'\'']*\.(tsx?)["'\'']' ./dist/index.html; then
             FOUND_TS=1
           fi
           
           # Check for unquoted .ts/.tsx files (less common but possible)
-          if grep -E '(src|import)[[:space:]]*=[[:space:]]*[^"\047[:space:]>]*\.(tsx?)[[:space:]>]' ./dist/index.html; then
+          # Matches: src=file.tsx followed by space or >
+          if grep -E '(src|import)[[:space:]]*=[[:space:]]*[^"'\''[:space:]>]*\.(tsx?)[[:space:]>]' ./dist/index.html; then
             FOUND_TS=1
           fi
           
