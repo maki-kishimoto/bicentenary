@@ -34,6 +34,41 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          echo "Verifying that no TypeScript files are referenced in built HTML..."
+          # Check for TypeScript (.ts or .tsx) file references in various attribute contexts
+          # Patterns checked:
+          # - src="file.tsx" or src='file.ts' (quoted)
+          # - src=file.tsx (unquoted)
+          # - Similar patterns for 'import' attribute
+          #
+          # We use two passes for clarity:
+          # 1. Check for quoted TypeScript files
+          # 2. Check for unquoted TypeScript files
+          
+          FOUND_TS=0
+          
+          # Check for quoted .ts/.tsx files (double or single quotes)
+          # Matches: src="file.tsx" or src='file.ts' or import="file.tsx"
+          if grep -E '(src|import)[[:space:]]*=[[:space:]]*["'\''][^"'\'']*\.(tsx?)["'\'']' ./dist/index.html; then
+            FOUND_TS=1
+          fi
+          
+          # Check for unquoted .ts/.tsx files (less common but possible)
+          # Matches: src=file.tsx followed by space or >
+          if grep -E '(src|import)[[:space:]]*=[[:space:]]*[^"'\''[:space:]>]*\.(tsx?)[[:space:]>]' ./dist/index.html; then
+            FOUND_TS=1
+          fi
+          
+          if [ $FOUND_TS -eq 1 ]; then
+            echo "ERROR: Built HTML contains references to TypeScript files!"
+            echo "The build process should have compiled all TypeScript to JavaScript."
+            exit 1
+          fi
+          
+          echo "✓ Build verification passed - no TypeScript files in built output"
+
       - name: Add .nojekyll file
         run: touch ./dist/.nojekyll
 
