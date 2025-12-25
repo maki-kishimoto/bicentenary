@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import LocationAndLanguageSelector from './components/LocationAndLanguageSelector';
-import LocationSelector from './components/LocationSelector';
-import { LocationChoice, Language } from './types';
+import LocationAndLanguageSelector from '../components/LocationAndLanguageSelector';
+import LocationSelector from '../components/LocationSelector';
+import { LocationChoice, Language } from '../types';
 
 // These should be the final chat interface URLs
 const REDIRECT_URL_UCL = 'https://www.ucl.ac.uk/about/ucls-bicentenary';
