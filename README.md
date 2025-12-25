@@ -40,3 +40,13 @@ npm run build
 ```
 
 The built files will be in the `dist` directory.
+
+## Troubleshooting
+
+If you encounter errors when accessing your deployed site (especially MIME type errors or module loading issues), please see the [TROUBLESHOOTING.md](TROUBLESHOOTING.md) guide for detailed solutions.
+
+**Common issues:**
+- MIME type error: "application/octet-stream" → See [Troubleshooting Guide](TROUBLESHOOTING.md)
+- Site not loading after deployment → Verify GitHub Pages is set to use "GitHub Actions" as source
+- Changes not appearing → Clear browser cache or use incognito mode
+
