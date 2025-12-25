@@ -37,13 +37,34 @@ jobs:
       - name: Verify build output
         run: |
           echo "Verifying that no TypeScript files are referenced in built HTML..."
-          # Check for .ts or .tsx extensions in various contexts (src, from, import)
-          # Pattern matches: src="*.tsx", src='*.ts', from "*.tsx", etc.
-          if grep -E '(src|from|import)[[:space:]]*=[[:space:]]*["\047]?[^"\047]*\.(tsx?)["\047]?' ./dist/index.html; then
+          # Check for TypeScript (.ts or .tsx) file references in various attribute contexts
+          # Patterns checked:
+          # - src="file.tsx" or src='file.ts' (quoted)
+          # - src=file.tsx (unquoted)
+          # - Similar patterns for 'import' attribute
+          #
+          # We use two passes for clarity:
+          # 1. Check for quoted TypeScript files
+          # 2. Check for unquoted TypeScript files
+          
+          FOUND_TS=0
+          
+          # Check for quoted .ts/.tsx files (double or single quotes)
+          if grep -E '(src|import)[[:space:]]*=[[:space:]]*["\047][^"\047]*\.(tsx?)["\047]' ./dist/index.html; then
+            FOUND_TS=1
+          fi
+          
+          # Check for unquoted .ts/.tsx files (less common but possible)
+          if grep -E '(src|import)[[:space:]]*=[[:space:]]*[^"\047[:space:]>]*\.(tsx?)[[:space:]>]' ./dist/index.html; then
+            FOUND_TS=1
+          fi
+          
+          if [ $FOUND_TS -eq 1 ]; then
             echo "ERROR: Built HTML contains references to TypeScript files!"
             echo "The build process should have compiled all TypeScript to JavaScript."
             exit 1
           fi
+          
           echo "✓ Build verification passed - no TypeScript files in built output"
 
       - name: Add .nojekyll file
