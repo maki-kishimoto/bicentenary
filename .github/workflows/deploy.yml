@@ -37,8 +37,9 @@ jobs:
       - name: Verify build output
         run: |
           echo "Verifying that no TypeScript files are referenced in built HTML..."
-          # Check for .ts or .tsx extensions in src attributes or import statements
-          if grep -E '(src=|from ).*\.(tsx?)"' ./dist/index.html; then
+          # Check for .ts or .tsx extensions in various contexts (src, from, import)
+          # Pattern matches: src="*.tsx", src='*.ts', from "*.tsx", etc.
+          if grep -E '(src|from|import)[[:space:]]*=[[:space:]]*["\047]?[^"\047]*\.(tsx?)["\047]?' ./dist/index.html; then
             echo "ERROR: Built HTML contains references to TypeScript files!"
             echo "The build process should have compiled all TypeScript to JavaScript."
             exit 1
