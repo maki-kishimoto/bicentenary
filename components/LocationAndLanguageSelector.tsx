@@ -25,9 +25,17 @@ const LocationAndLanguageSelector: React.FC<Props> = ({ initialLanguage, redirec
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-indigo-950 tracking-tight mb-2 whitespace-nowrap">{t.selectorTitle}</h1>
                 <div className="h-1 w-20 bg-indigo-200 mx-auto rounded-full mt-4 mb-6"></div>
                 
-                <div className="min-h-[10rem] flex flex-col justify-center text-xs text-stone-500 text-left space-y-2 mb-8 bg-stone-50 p-4 rounded-lg border border-stone-100">
-                    <p>{t.disclaimerPrivacy}</p>
-                    <p>{t.disclaimerCookies}</p>
+                <div className="min-h-[12rem] flex flex-col text-xs text-stone-600 text-left space-y-3 mb-8 bg-stone-50 p-5 rounded-xl border border-stone-100 shadow-inner">
+                    <p className="font-bold text-indigo-900 text-sm">{t.disclaimerTitle}</p>
+                    <p className="leading-relaxed">{t.disclaimerIntro}</p>
+                    <ul className="space-y-2 mt-1">
+                      {t.disclaimerPoints.map((point, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <span className="shrink-0">{point.split(' ')[0]}</span>
+                          <span>{point.split(' ').slice(1).join(' ')}</span>
+                        </li>
+                      ))}
+                    </ul>
                 </div>
 
                 <p className="text-stone-600 font-medium h-6">{t.selectorDescription}</p>
