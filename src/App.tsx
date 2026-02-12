@@ -5,7 +5,7 @@ import LocationSelector from '@/components/LocationSelector';
 import { LocationChoice, Language } from '@/types';
 
 // These should be the final chat interface URLs
-const REDIRECT_URL_UCL = 'https://www.ucl.ac.uk/about/ucls-bicentenary';
+const REDIRECT_URL_UCL = 'https://choshu-five-spirits-ucl-18450264775.us-west1.run.app/';
 const REDIRECT_URL_HAGI = 'https://www.city.hagi.lg.jp/site/meiringakusha/';
 
 const App: React.FC = () => {
