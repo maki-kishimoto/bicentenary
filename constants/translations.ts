@@ -10,7 +10,7 @@ export const translations = {
     selectorDescription: "Please select your language.",
     startChat: "Begin Conversation",
     disclaimerTitle: "Before we begin...",
-    disclaimerIntro: "Joining this chat counts as agreement to our policy. You can leave whenever you like.",
+    disclaimerIntro: "Joining this chat counts as agreement to the terms below. You can leave whenever you like.",
     disclaimerPoints: [
       "📝 Your chat history is stored.",
       "🔍 Data is used solely for academic research purposes.",
@@ -28,9 +28,9 @@ export const translations = {
     selectorDescription: "言語を選択してください。",
     startChat: "会話を始める",
     disclaimerTitle: "注意事項",
-    disclaimerIntro: "このチャットを開始することで、以下の事項に同意したものとみなされます。なお、対話はいつでも中断いただけます。",
+    disclaimerIntro: "このチャットを開始することで、以下の事項に同意したものとみなされます。なお、会話はいつでも中断いただけます。",
     disclaimerPoints: [
-      "📝 会話内容は記録・保存されます",
+      "📝 会話内容はクラウド上に記録されます",
       "🔍 履歴は学術研究に活用される場合があります",
       "⚠️ 個人情報の入力はお控えください"
     ],
